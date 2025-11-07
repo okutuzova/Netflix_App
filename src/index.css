@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+.text-stroke-white {
+  -webkit-text-stroke: 2px white;
+  color: black;
+}
+
+/* Hide horizontal scrollbar */
+.hide-scrollbar::-webkit-scrollbar{
+  display: none;
+}
+.hode-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
