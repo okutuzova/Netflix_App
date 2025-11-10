@@ -20,3 +20,11 @@ async function fetchFromTMDB(endpoint) {
 export const getTrendingMovies = () => fetchFromTMDB("/trending/movie/week");
 export const getTopRatedMovies = () => fetchFromTMDB("/movie/top_rated");
 export const getUpcomingMovies = () => fetchFromTMDB("/movie/upcoming");
+
+/**
+ * Fetch full details of a movie by ID
+ * @param {number|string} id - TMDB movie ID
+ * @returns {Promise<object>}
+ */
+export const getMovieById = (id) =>
+    fetchFromTMDB(`/movie/${id}?append_to_response=credits,videos,releases`);
