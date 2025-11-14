@@ -28,3 +28,22 @@ export const getUpcomingMovies = () => fetchFromTMDB("/movie/upcoming");
  */
 export const getMovieById = (id) =>
     fetchFromTMDB(`/movie/${id}?append_to_response=credits,videos,releases`);
+
+
+
+export const searchMovie = async (query) => {
+    const url = `${BASE_URL}/search/movie?query=${encodeURIComponent(query)}&include_adult=false`;
+  
+    const res = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+        accept: "application/json",
+      },
+    });
+  
+    if (!res.ok) throw new Error(`Failed to fetch movies: ${res.status}`);
+    const data = await res.json();
+    return data.results;
+  };
+  
+
