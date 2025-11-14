@@ -11,44 +11,107 @@ const Footer = () => {
         </div>
 
         <div className="flex justify-center flex-wrap gap-8 mb-8">
-       
           <div className="w-[200px]">
             <ul className="space-y-2 list-none">
               <li className="font-medium">Support</li>
-              <li>FAQ</li>
-              <li>Help Center</li>
-              <li>Contact Us</li>
-              <li>Report a Problem</li>
+              <li>
+                <a href="/sign-in" className="hover:underline">
+                  FAQ
+                </a>
+              </li>
+              <li>
+                <a href="/create-account" className="hover:underline">
+                  Help Center
+                </a>
+              </li>
+              <li>
+                <a href="/your-devices" className="hover:underline">
+                  Contact Us
+                </a>
+              </li>
+              <li>
+                <a href="/email-preferences" className="hover:underline">
+                  Report a Problem
+                </a>
+              </li>
             </ul>
           </div>
-      
+
           <div className="w-[200px]">
             <ul className="space-y-2 list-none">
               <li className="font-medium">Your Account</li>
-              <li>Sign In</li>
-              <li>Create Account</li>
-              <li>Your Devices</li>
-              <li>Email Preferences</li>
+              <li>
+                <a href="/sign-in" className="hover:underline">
+                  Sign In
+                </a>
+              </li>
+              <li>
+                <a href="/create-account" className="hover:underline">
+                  Create Account
+                </a>
+              </li>
+              <li>
+                <a href="/your-devices" className="hover:underline">
+                  Your Devices
+                </a>
+              </li>
+              <li>
+                <a href="/email-preferences" className="hover:underline">
+                  Email Preferences
+                </a>
+              </li>
             </ul>
           </div>
 
           <div className="w-[200px]">
             <ul className="space-y-2 list-none">
               <li className="font-medium">Information</li>
-              <li>About Us</li>
-              <li>Careers</li>
-              <li>Terms of Use</li>
-              <li>Privacy Policy</li>
+              <li>
+                <a href="/sign-in" className="hover:underline">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="/create-account" className="hover:underline">
+                  Careers
+                </a>
+              </li>
+              <li>
+                <a href="/your-devices" className="hover:underline">
+                  Terms of Use
+                </a>
+              </li>
+              <li>
+                <a href="/email-preferences" className="hover:underline">
+                  Privacy Policy
+                </a>
+              </li>
             </ul>
           </div>
 
           <div className="w-[200px]">
             <ul className="space-y-2 list-none">
               <li className="font-medium">For Media</li>
-              <li>Press Releases</li>
-              <li>Official Blog</li>
-              <li>Events</li>
-              <li>Brand Guidelines</li>
+              <li>
+                <a href="/sign-in" className="hover:underline">
+                  Press Releases
+                </a>
+              </li>
+              <li>
+                <a href="/create-account" className="hover:underline">
+                  Official Blog
+                </a>
+              </li>
+              <li>
+                <a href="/your-devices" className="hover:underline">
+                  Events
+                </a>
+              </li>
+              <li>
+                <a href="/email-preferences" className="hover:underline">
+                  Brand Guidelines
+                </a>
+              </li>
             </ul>
           </div>
         </div>
