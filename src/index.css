@@ -5,12 +5,34 @@
   color: black;
 }
 
-/* Hide horizontal scrollbar */
+/* Hide horizontal scrollbar for movie rows*/
 .hide-scrollbar::-webkit-scrollbar{
   display: none;
 }
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Scrollbar for dropdown menu */
+/* В глобальный CSS или внутри компонента через <style jsx> */
+.scrollbar-thin {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #e50914 #1f1f1f; /* Firefox: thumb color + track color */
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #1f1f1f;
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: #e50914;
+  border-radius: 3px;
+  border: 1px solid #1f1f1f;
 }
 
