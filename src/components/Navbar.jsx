@@ -1,5 +1,6 @@
 import SearchBar from "./SearchBar";
 import bgimg from "../assets/Netflix-background-banner.jpg";
+import netflixLogo from "../assets/netflix-logo.png";
 
 const Nav = () => {
   return (
@@ -12,9 +13,11 @@ const Nav = () => {
 
         <div className="relative z-10">
           <div className="flex justify-between items-center flex-wrap gap-4">
-            <div className="text-3xl md:text-4xl font-bold text-red-600">
-              NETFLIX by Mayte & Olga
-            </div>
+            <img 
+              src={netflixLogo}
+              alt="NETFLIX by Mayte & Olga"
+              className="h-8 md:h-10 object-contain"
+            />
 
             <div className="flex flex-wrap justify-center gap-3 w-full max-w-2xl mx-auto md:space-around md:mx-0 md:w-auto">
               <div className="flex w-full md:w-auto gap-3">
@@ -44,7 +47,6 @@ const Nav = () => {
               Ready to watch? Choose your movie for tonight...
             </p>
 
-
             <SearchBar />
             {/* <div className="py-5 flex flex-col sm:flex-row gap-3 items-center">
               <input
@@ -56,10 +58,6 @@ const Nav = () => {
                 Search
               </button>
             </div> */}
-
-
-
-
           </div>
         </div>
       </div>
