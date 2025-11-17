@@ -2,6 +2,9 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getMovieById } from "../api/tmdb";
 import { useFavorites } from "../hooks/useFavorites";
+import { useNavigate } from "react-router-dom";
+import MovieRow from "../components/MovieRow";
+import { getTopRatedMovies } from "../api/tmdb";
 import placeholderMovie from "../assets/placeholderMovie.jpg";
 
 export default function MovieDetail() {
@@ -9,6 +12,7 @@ export default function MovieDetail() {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
   const { addToFavorites, removeFromFavorites, isFavorite  } = useFavorites();
   
   const toggleFavorite = (movie) => {
@@ -40,11 +44,12 @@ export default function MovieDetail() {
   if (!movie) return <div className="text-gray-400 text-center p-4">No movie data</div>;
 
   const cast = movie.credits?.cast?.slice(0, 5) || [];
+  const genres = movie.genres?.map((g) => g.name).join(", ") || "N/A";
 
 
 
 return (
-    <div className="relative min-h-screen text-white">
+    <div className="relative min-h-screen bg-black text-white">
       {/* Background poster with gradient */}
       {/* <div
         className="absolute inset-0 bg-cover bg-center filter brightness-50 opacity-80"
@@ -58,21 +63,148 @@ return (
       ></div> */}
 
 <div className="absolute inset-0">
-{/* <button onClick={toggleFavorite}>{isFavorite(movie.id) ? "Remove" : "Add to favorites"}</button> */}
+<div className="absolute inset-0 bg-cover bg-center bg-no-repeat filter blur-sm opacity-200"
+style={{
+  backgroundImage: `url(${
+    movie.backdrop_path
+      ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
+      : placeholderMovie
+  })`,
+}}
+></div>
+{/* Black overlay */}
+<div className="absolute inset-0 bg-black opacity-70"></div>
+      </div>
+
+
+ {/* Navbar */}
+ <nav className="absolute top-0 left-0 right-0 z-50 bg-black bg-opacity-80 px-6 py-4 flex justify-between items-center">
+        <div className="flex items-center gap-8">
+          <img
+            src={"/netflix-icon.png"}
+            alt="NETFLIX"
+            className="h-8 md:h-10 object-contain"
+            onClick={() => navigate("/")}
+          />
+          
+        </div>
+        <div className="flex items-center gap-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 cursor-pointer"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+              clipRule="evenodd"
+            />
+          </svg>
+         
+        </div>
+      </nav>
 
 
 
-{/* Heart button */}
-<button
+
+
+
+      {/* Main Content */}
+      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-60 pb-16 flex flex-col lg:flex-row gap-8 items-start">
+       {/* Poster Section - Left Side */}
+       <div className="flex-shrink-0 w-full lg:w-1/3 flex justify-center">
+       <div className="relative rounded-lg overflow-hidden shadow-2xl transform hover:scale-105 transition duration-300 max-w-md">
+          <img
+            src={
+              movie.poster_path
+                ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                : placeholderMovie
+            }
+            alt={movie.title}
+            className="w-full h-auto object-cover"
+          />
+          {/* Overlay con sfumatura ai lati */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-60"></div>
+        </div>
+        </div>
+
+        {/* Details Section - Right Side*/}
+        <div className="flex-1 flex flex-col gap-4">
+          <h1 className="text-8xl font-bold">{movie.title}</h1>
+
+          {/* Info Line: Year, Duration, Rating */}
+          <div className="flex items-center gap-4 text-xl text-gray-300">
+            <span>{movie.release_date?.split("-")[0] || "N/A"}</span>
+            <span>•</span>
+            <span>{movie.runtime} min</span>
+            <span>•</span>
+            <span>{movie.vote_average} / 10</span>
+          </div>
+
+
+           {/* Buttons */}
+           <div className="flex gap-4 mt-4">
+            <button className="bg-white text-black px-4 py-2 rounded-md font-semibold flex items-center gap-2 hover:bg-gray-200 transition">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.188A1 1 0 008 8v4a1 1 0 001.555.812l3 1.5A1 1 0 0014 14V8a1 1 0 00-1.555-.812l-3-1.5z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              Riproduci
+            </button>
+            <button className="border border-gray-400 text-white px-4 py-2 rounded-md font-semibold flex items-center gap-2 hover:bg-gray-700 transition">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                <path
+                  fillRule="evenodd"
+                  d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm9 4a1 1 0 11-2 0 1 1 0 012 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              La mia lista
+            </button>
+            <button className="border border-gray-400 text-white px-4 py-2 rounded-md font-semibold flex items-center gap-2 hover:bg-gray-700 transition">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+            
+
+            <button
   onClick={() => toggleFavorite(movie)}
-  className={`absolute top-4 right-4 z-20 w-12 h-12 flex items-center justify-center rounded-full transition-colors duration-300
-    ${isFavorite(movie.id) ? "bg-red-600 text-white" : "bg-gray-700 text-gray-300"}
+  className={`px-4 py-2 rounded-md font-semibold flex items-center gap-2 transition 
+    ${isFavorite(movie.id)
+      ? "bg-red-600 text-white border-red-600 hover:bg-red-700"
+      : "border border-gray-400 text-white hover:bg-gray-700"}
   `}
 >
   {isFavorite(movie.id) ? (
+    // Filled heart
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="h-6 w-6"
+      className="h-5 w-5"
       fill="currentColor"
       viewBox="0 0 24 24"
       stroke="none"
@@ -83,9 +215,10 @@ return (
                6.86-8.55 11.54L12 21.35z" />
     </svg>
   ) : (
+    // Empty heart
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="h-6 w-6"
+      className="h-5 w-5"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -101,89 +234,52 @@ return (
       />
     </svg>
   )}
+
+  
 </button>
 
 
-  <div
-    className="absolute inset-0 bg-cover bg-center"
-    style={{
-      backgroundImage: `url(${
-        movie.backdrop_path
-          ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
-          : placeholderMovie
-      })`,
-    }}
-  ></div>
+          </div>
 
-  {/* Black overlay */}
-  <div className="absolute inset-0 bg-black opacity-70"></div>
+
+           {/* Overview */}
+           <p className="mt-4 text-gray-200 leading-relaxed">{movie.overview}</p>
+
+{/* Cast and Genres */}
+<div className="mt-4 text-sm text-gray-300">
+  <div className="mb-2">
+    <strong>Cast:</strong>{" "}
+    {cast.map((actor) => actor.name).join(", ")}
+  </div>
+  <div>
+    <strong>Generi:</strong> {genres}
+  </div>
+</div>
+
+{/* Navigation Tabs */}
+<div className="mt-8 border-t border-gray-700 pt-4">
+  <div className="flex space-x-6">
+    <button className="text-white font-semibold border-b-2 border-white pb-2">
+      RIEPILOGO
+    </button>
+    <button className="text-gray-400 hover:text-white transition">
+      ALTRI TITOLI SIMILI
+    </button>
+    <button className="text-gray-400 hover:text-white transition">
+      DETTAGLI
+    </button>
+  </div>
+</div>
+</div>
+</div>
+
+<MovieRow className="z-10 bg-opacity-50" title="Top Rated" fetchFunction={getTopRatedMovies}/>
 </div>
 
 
-      {/* Main Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 py-16 flex flex-col lg:flex-row gap-8">
-        {/* Poster */}
-        <div className="flex-shrink-0 w-full lg:w-100 rounded-lg overflow-hidden shadow-2xl">
-          <img
-            src={
-              movie.poster_path
-                ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                : placeholderMovie
-            }
-            alt={movie.title}
-            className="w-full h-full object-cover"
-          />
-        </div>
 
-        {/* Details */}
-        <div className="flex-1 flex flex-col gap-4">
-          <h1 className="text-4xl font-bold">{movie.title}</h1>
-          {movie.tagline && (
-            <p className="text-gray-300 italic">{movie.tagline}</p>
-          )}
-
-          {/* Genres */}
-          <div className="flex flex-wrap gap-2">
-            {movie.genres?.map((g) => (
-              <span
-                key={g.id}
-                className="bg-red-600 px-3 py-1 rounded-full text-sm font-semibold"
-              >
-                {g.name}
-              </span>
-            ))}
-          </div>
-
-          <div className="flex flex-wrap gap-6 mt-2 text-sm text-gray-300">
-            <span>
-              <strong>Rating:</strong> {movie.vote_average} / 10
-            </span>
-            <span>
-              <strong>Release:</strong> {movie.release_date}
-            </span>
-            <span>
-              <strong>Duration:</strong> {movie.runtime} min
-            </span>
-          </div>
-
-          {/* Cast */}
-          <div className="mt-4">
-            <strong>Cast:</strong>
-            <ul className="list-disc list-inside">
-              {cast.map((actor) => (
-                <li key={actor.id}>
-                  {actor.name} as {actor.character}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Overview */}
-          <p className="mt-6 text-gray-200">{movie.overview}</p>
-        </div>
-      </div>
-
+       
      
-    </div>
+
   );
 }
