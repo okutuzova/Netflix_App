@@ -1,7 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import { useFavorites } from "../hooks/useFavorites";
 import bgimg from "../assets/Netflix-background-banner.jpg";
 
 const Nav = () => {
+  const { favorites } = useFavorites();
+  const navigate = useNavigate();
   return (
     <>
       <div className="px-6 py-5 bg-black bg-cover text-white z-10 relative">
@@ -18,15 +22,22 @@ const Nav = () => {
 
             <div className="flex flex-wrap justify-center gap-3 w-full max-w-2xl mx-auto md:space-around md:mx-0 md:w-auto">
               <div className="flex w-full md:w-auto gap-3">
-                <button className="bg-red-600 mr-7 px-4 py-1.5 flex-1 rounded whitespace-nowrap">
+                <button 
+                 //  onClick={() => navigate("/movies")
+                className="bg-red-600 mr-7 px-4 py-1.5 flex-1 rounded whitespace-nowrap">
                   Movies
                 </button>
-                <button className="bg-red-600 mr-7 px-4 py-1.5 flex-1 rounded whitespace-nowrap">
+                <button 
+                //  onClick={() => navigate("/series")
+                className="bg-red-600 mr-7 px-4 py-1.5 flex-1 rounded whitespace-nowrap">
                   TV Series
                 </button>
-                <button className="bg-red-600 mr-7 px-4 py-1.5 flex-1 rounded whitespace-nowrap">
-                  Favorites
+                <button 
+                onClick={() => navigate("/favorites")}
+                className="bg-red-600 mr-7 px-4 py-1.5 flex-1 rounded whitespace-nowrap">
+                  Favorites ({favorites.length})
                 </button>
+
               </div>
             </div>
           </div>

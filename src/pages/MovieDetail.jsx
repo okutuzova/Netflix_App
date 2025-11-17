@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getMovieById } from "../api/tmdb";
+import { useFavorites } from "../hooks/useFavorites";
 import placeholderMovie from "../assets/placeholderMovie.jpg";
 
 export default function MovieDetail() {
@@ -8,6 +9,13 @@ export default function MovieDetail() {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { addToFavorites, removeFromFavorites, isFavorite  } = useFavorites();
+  
+  const toggleFavorite = (movie) => {
+    isFavorite(movie.id)
+      ? removeFromFavorites(movie.id)
+      : addToFavorites(movie);
+  };
 
   useEffect(() => {
     async function fetchMovie() {
@@ -50,7 +58,52 @@ return (
       ></div> */}
 
 <div className="absolute inset-0">
- 
+{/* <button onClick={toggleFavorite}>{isFavorite(movie.id) ? "Remove" : "Add to favorites"}</button> */}
+
+
+
+{/* Heart button */}
+<button
+  onClick={() => toggleFavorite(movie)}
+  className={`absolute top-4 right-4 z-20 w-12 h-12 flex items-center justify-center rounded-full transition-colors duration-300
+    ${isFavorite(movie.id) ? "bg-red-600 text-white" : "bg-gray-700 text-gray-300"}
+  `}
+>
+  {isFavorite(movie.id) ? (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="h-6 w-6"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+      stroke="none"
+    >
+      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 
+               4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 
+               14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 
+               6.86-8.55 11.54L12 21.35z" />
+    </svg>
+  ) : (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 
+           4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 
+           14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 
+           6.86-8.55 11.54L12 21.35z"
+      />
+    </svg>
+  )}
+</button>
+
+
   <div
     className="absolute inset-0 bg-cover bg-center"
     style={{
@@ -129,6 +182,8 @@ return (
           <p className="mt-6 text-gray-200">{movie.overview}</p>
         </div>
       </div>
+
+     
     </div>
   );
 }
