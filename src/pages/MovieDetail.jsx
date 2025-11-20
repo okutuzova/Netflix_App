@@ -158,7 +158,7 @@ style={{
                   clipRule="evenodd"
                 />
               </svg>
-              Riproduci
+              Play
             </button>
             <button className="border border-gray-400 text-white px-4 py-2 rounded-md font-semibold flex items-center gap-2 hover:bg-gray-700 transition">
               <svg
@@ -174,7 +174,7 @@ style={{
                   clipRule="evenodd"
                 />
               </svg>
-              La mia lista
+              My list
             </button>
             <button className="border border-gray-400 text-white px-4 py-2 rounded-md font-semibold flex items-center gap-2 hover:bg-gray-700 transition">
               <svg
@@ -252,7 +252,7 @@ style={{
     {cast.map((actor) => actor.name).join(", ")}
   </div>
   <div>
-    <strong>Generi:</strong> {genres}
+    <strong>Genres:</strong> {genres}
   </div>
 </div>
 
@@ -260,13 +260,13 @@ style={{
 <div className="mt-8 border-t border-gray-700 pt-4">
   <div className="flex space-x-6">
     <button className="text-white font-semibold border-b-2 border-white pb-2">
-      RIEPILOGO
+      Overview
     </button>
     <button className="text-gray-400 hover:text-white transition">
-      ALTRI TITOLI SIMILI
+      Same titles
     </button>
     <button className="text-gray-400 hover:text-white transition">
-      DETTAGLI
+      Details
     </button>
   </div>
 </div>

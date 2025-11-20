@@ -20,6 +20,15 @@ async function fetchFromTMDB(endpoint) {
 export const getTrendingMovies = () => fetchFromTMDB("/trending/movie/week");
 export const getTopRatedMovies = () => fetchFromTMDB("/movie/top_rated");
 export const getUpcomingMovies = () => fetchFromTMDB("/movie/upcoming");
+export const getPopularMovies = () => fetchFromTMDB("/movie/popular");
+export const getNowPlayingMovies = () => fetchFromTMDB("/movie/now_playing");
+
+// -- TV --
+export const getTrendingTV = () => fetchFromTMDB("/trending/tv/week");
+export const getTopRatedTV = () => fetchFromTMDB("/tv/top_rated");
+export const getPopularTV = () => fetchFromTMDB("/tv/popular");
+export const getTVById = (id) =>
+    fetchFromTMDB(`/tv/${id}?append_to_response=credits,videos`);
 
 /**
  * Fetch full details of a movie by ID

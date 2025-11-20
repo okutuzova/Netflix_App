@@ -23,12 +23,12 @@ const Nav = () => {
             <div className="flex flex-wrap justify-center gap-3 w-full max-w-2xl mx-auto md:space-around md:mx-0 md:w-auto">
               <div className="flex w-full md:w-auto gap-3">
                 <button 
-                 //  onClick={() => navigate("/movies")
+                  onClick={() => navigate("/movies")}
                 className="bg-red-600 mr-7 px-4 py-1.5 flex-1 rounded whitespace-nowrap">
                   Movies
                 </button>
                 <button 
-                //  onClick={() => navigate("/series")
+                 onClick={() => navigate("/series")}
                 className="bg-red-600 mr-7 px-4 py-1.5 flex-1 rounded whitespace-nowrap">
                   TV Series
                 </button>

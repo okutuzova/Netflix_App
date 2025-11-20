@@ -14,8 +14,9 @@ export default function MovieRow({
   title,
   fetchFunction,
   showRanking = false,
+  type = "movie" 
 }) {
-  const { data: movies, loading, error } = useFetch(fetchFunction);
+  const { data: items, loading, error } = useFetch(fetchFunction);
   const scrollRef = useRef(null);
   const navigate = useNavigate();
 
@@ -70,13 +71,13 @@ export default function MovieRow({
         <div 
         ref = {scrollRef}
         className="flex gap-10 overflow-x-auto hide-scrollbar scroll-smooth snap-x snap-mandatory">
-          {movies.map((movie, index) => {
+          {items.map((item, index) => {
             return (
               <div
-                key={movie.id}
+                key={item.id}
                 index={index + 1}
                 className="relative min-w-[180px] group transform hover:scale-105 transition duration-300 cursor-pointer snap-start"
-                onClick={() => navigate(`/movie/${movie.id}`)}
+                onClick={() => navigate(`/${type}/${item.id}`)}
               >
                 {showRanking && (
                   <span className="absolute -left-1 bottom-0 text-[100px] font-extrabold text-stroke-white">
@@ -85,18 +86,18 @@ export default function MovieRow({
                 )}
                 <img
                   src={
-                    movie.poster_path
-                      ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                    item.poster_path
+                      ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
                       : placeholderMovie
                   }
                   className="rounded-xl w-full h-[260px] object-cover shadow-lg"
-                  alt={movie.title}
+                  alt={item.name}
                 />
 
                 
 
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <h3 className="text-sm font-semibold">{movie.title}</h3>
+                  <h3 className="text-sm font-semibold">{item.name}</h3>
                 </div>
               </div>
             );
