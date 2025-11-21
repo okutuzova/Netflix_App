@@ -160,7 +160,9 @@ style={{
               </svg>
               Play
             </button>
-            <button className="border border-gray-400 text-white px-4 py-2 rounded-md font-semibold flex items-center gap-2 hover:bg-gray-700 transition">
+            <button 
+             onClick={() => navigate("/favorites")}
+            className="border border-gray-400 text-white px-4 py-2 rounded-md font-semibold flex items-center gap-2 hover:bg-gray-700 transition">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -175,6 +177,7 @@ style={{
                 />
               </svg>
               My list
+              
             </button>
             <button className="border border-gray-400 text-white px-4 py-2 rounded-md font-semibold flex items-center gap-2 hover:bg-gray-700 transition">
               <svg
@@ -193,14 +196,14 @@ style={{
             
 
             <button
-  onClick={() => toggleFavorite(movie)}
+  onClick={() => toggleFavorite(movie, "movie")}
   className={`px-4 py-2 rounded-md font-semibold flex items-center gap-2 transition 
     ${isFavorite(movie.id)
       ? "bg-red-600 text-white border-red-600 hover:bg-red-700"
       : "border border-gray-400 text-white hover:bg-gray-700"}
   `}
 >
-  {isFavorite(movie.id) ? (
+  {isFavorite(movie.id, "movie") ? (
     // Filled heart
     <svg
       xmlns="http://www.w3.org/2000/svg"

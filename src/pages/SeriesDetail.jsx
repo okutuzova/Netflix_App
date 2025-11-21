@@ -109,15 +109,35 @@ export default function SeriesDetail() {
             <button className="bg-white text-black px-4 py-2 rounded-md font-semibold flex items-center gap-2 hover:bg-gray-200 transition">
              Play
             </button>
+
+            <button 
+             onClick={() => navigate("/favorites")}
+            className="border border-gray-400 text-white px-4 py-2 rounded-md font-semibold flex items-center gap-2 hover:bg-gray-700 transition">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                <path
+                  fillRule="evenodd"
+                  d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm9 4a1 1 0 11-2 0 1 1 0 012 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              My list
+              
+            </button>
             <button
-  onClick={() => toggleFavorite(series)}
+  onClick={() => toggleFavorite(series, "series")}
   className={`px-4 py-2 rounded-md font-semibold flex items-center gap-2 transition 
     ${isFavorite(series.id)
       ? "bg-red-600 text-white border-red-600 hover:bg-red-700"
       : "border border-gray-400 text-white hover:bg-gray-700"}
   `}
 >
-  {isFavorite(series.id) ? (
+  {isFavorite(series.id, "series") ? (
     // Filled heart
     <svg
       xmlns="http://www.w3.org/2000/svg"

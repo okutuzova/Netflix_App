@@ -1,4 +1,5 @@
 import { useFavorites } from "../hooks/useFavorites";
+import placeholderMovie from "../assets/placeholderMovie.jpg";
 
 export default function FavoritesPage() {
     const { favorites, removeFromFavorites } = useFavorites();
@@ -10,12 +11,12 @@ export default function FavoritesPage() {
         {favorites.length === 0 && <p>List is empty.</p>}
   
         <div className="favorites-grid">
-          {favorites.map((movie) => (
-            <div key={movie.id} className="movie-card">
-              <img src={movie.poster} alt={movie.title} />
-              <h3>{movie.title}</h3>
+          {favorites.map((item) => (
+             <div key={`${item.type}-${item.id}`} className="movie-card">
+              <img src={item.poster_path ? `https://image.tmdb.org/t/p/w200${item.poster_path}` : placeholderMovie} alt={item.displayName} />
+              <h3>{item.displayName}</h3>
   
-              <button onClick={() => removeFromFavorites(movie.id)}>
+              <button onClick={() => removeFromFavorites(item.id, item.type)}>
                 Remove
               </button>
             </div>

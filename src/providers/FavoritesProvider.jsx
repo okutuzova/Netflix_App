@@ -12,17 +12,24 @@ export function FavoritesProvider({ children }) {
       localStorage.setItem("favorites", JSON.stringify(favorites));
     }, [favorites]);
   
-    const addToFavorites = (movie) => {
+    const addToFavorites = (item, type= "movie") => {
+      const favoriteItem = {
+        ...item,
+        type,
+        displayName: item.title || item.name,
+      };
       setFavorites((prev) =>
-        prev.some((m) => m.id === movie.id) ? prev : [...prev, movie]
+        prev.some((m) => m.id === item.id  && m.type === type) ? prev : [...prev, favoriteItem]
       );
     };
   
-    const removeFromFavorites = (id) => {
-      setFavorites((prev) => prev.filter((m) => m.id !== id));
+    const removeFromFavorites = (id, type= "movie") => {
+      setFavorites((prev) => 
+        prev.filter((m) => !(m.id === id && m.type === type))
+      );
     };
   
-    const isFavorite = (id) => favorites.some((m) => m.id === id);
+    const isFavorite = (id, type= "movie") => favorites.some((m) => m.id === id && m.type === type);
   
     return (
       <FavoritesContext.Provider
