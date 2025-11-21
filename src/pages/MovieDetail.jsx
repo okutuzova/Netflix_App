@@ -2,10 +2,10 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getMovieById } from "../api/tmdb";
 import placeholderMovie from "../assets/placeholderMovie.jpg";
-import logoNetflix from "../assets/Netflix-Logo.png";
 import { useNavigate } from "react-router-dom";
 import MovieRow from "../components/MovieRow";
 import { getTopRatedMovies } from "../api/tmdb";
+import NavbarSecond from "../components/NavbarSecond";
 
 export default function MovieDetail() {
   const { id } = useParams();
@@ -65,32 +65,7 @@ export default function MovieDetail() {
       </div>
 
       {/* Navbar */}
-      <nav className="absolute top-0 left-0 right-0 z-50 bg-black bg-opacity-80 px-6 py-4 flex justify-between items-center">
-        <div className="flex items-center gap-8">
-          <img
-            src={logoNetflix}
-            alt="NETFLIX"
-            className="h-8 md:h-10 object-contain"
-            onClick={() => navigate("/")}
-          />
-          
-        </div>
-        <div className="flex items-center gap-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 cursor-pointer"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-              clipRule="evenodd"
-            />
-          </svg>
-         
-        </div>
-      </nav>
+      <NavbarSecond />
 
       {/* Main Content - Centered vertically */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 pt-60 pb-16 flex flex-col lg:flex-row gap-8 items-start">
