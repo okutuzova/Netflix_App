@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import MovieRow from "../components/MovieRow";
 import { getTopRatedMovies } from "../api/tmdb";
 import placeholderMovie from "../assets/placeholderMovie.jpg";
+import NavbarSecond from "../components/NavbarSecond";
 
 export default function MovieDetail() {
   const { id } = useParams();
@@ -39,9 +40,16 @@ export default function MovieDetail() {
     fetchMovie();
   }, [id]);
 
-  if (loading) return <div className="text-gray-400 text-center p-4 animate-pulse">Loading...</div>;
-  if (error) return <div className="text-red-500 text-center p-4">Error: {error}</div>;
-  if (!movie) return <div className="text-gray-400 text-center p-4">No movie data</div>;
+  if (loading)
+    return (
+      <div className="text-gray-400 text-center p-4 animate-pulse">
+        Loading...
+      </div>
+    );
+  if (error)
+    return <div className="text-red-500 text-center p-4">Error: {error}</div>;
+  if (!movie)
+    return <div className="text-gray-400 text-center p-4">No movie data</div>;
 
   const cast = movie.credits?.cast?.slice(0, 5) || [];
   const genres = movie.genres?.map((g) => g.name).join(", ") || "N/A";
@@ -50,17 +58,7 @@ export default function MovieDetail() {
 
 return (
     <div className="relative min-h-screen bg-black text-white">
-      {/* Background poster with gradient */}
-      {/* <div
-        className="absolute inset-0 bg-cover bg-center filter brightness-50 opacity-80"
-        style={{
-          backgroundImage: `url(${
-            movie.backdrop_path
-              ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
-              : placeholderMovie
-          })`,
-        }}
-      ></div> */}
+    
 
 <div className="absolute inset-0">
 <div className="absolute inset-0 bg-cover bg-center bg-no-repeat filter blur-sm opacity-200"
@@ -78,7 +76,7 @@ style={{
 
 
  {/* Navbar */}
- <nav className="absolute top-0 left-0 right-0 z-50 bg-black bg-opacity-80 px-6 py-4 flex justify-between items-center">
+ {/* <nav className="absolute top-0 left-0 right-0 z-50 bg-black bg-opacity-80 px-6 py-4 flex justify-between items-center">
         <div className="flex items-center gap-8">
           <img
             src={"/netflix-icon.png"}
@@ -103,9 +101,9 @@ style={{
           </svg>
          
         </div>
-      </nav>
+      </nav> */}
 
-
+      <NavbarSecond />
 
 
 

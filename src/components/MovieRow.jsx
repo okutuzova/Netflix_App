@@ -20,7 +20,7 @@ export default function MovieRow({
   const scrollRef = useRef(null);
   const navigate = useNavigate();
 
-  const scroll = (direction) =>  {
+  const scroll = (direction) => {
     const container = scrollRef.current;
     if (!container) return;
     
@@ -30,7 +30,7 @@ export default function MovieRow({
       left: target,
       behavior: "smooth",
     });
-  }
+  };
 
   if (loading)
     return (
@@ -46,11 +46,9 @@ export default function MovieRow({
     );
 
   return (
-    <section className= "relative text-white px-8 py-6 group">
-
-      
-        {/* Navigation Arrows */}
-        <button
+    <section className="relative text-white px-8 py-6 group">
+      {/* Navigation Arrows */}
+      <button
         onClick={() => scroll("left")}
         className="hidden group-hover:flex absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 p-2 rounded-full transition z-10 cursor-pointer"
       >
@@ -64,7 +62,7 @@ export default function MovieRow({
         <ChevronRight size={28} />
       </button>
       
-      <div className="bg-black px-30 text-white pt-10">
+      <div className=" px-30 text-white pt-10">
         <h2 className="font-bold text-2xl">{title}</h2>
 
 
