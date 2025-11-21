@@ -1,25 +1,21 @@
-// src/components/Nav.jsx
-
 import SearchBar from "./SearchBar";
 import bgimg from "../assets/Netflix-background-banner.jpg";
 import netflixLogo from "../assets/netflix-logo.png";
 
 const Nav = () => {
   return (
-    <div className="px-6 py-5 bg-black bg-cover text-white z-10 relative overflow-hidden">
-      {/* Sfondo poster */}
+    <div className="px-6 py-5 bg-black bg-cover text-white z-10 relative">
       <div
         className="absolute inset-0 bg-cover bg-center opacity-30"
         style={{ backgroundImage: `url(${bgimg})` }}
       ></div>
 
-      {/* Contenuto */}
       <div className="relative z-10">
         <div className="flex justify-between items-center flex-wrap gap-4">
           <img
             src={netflixLogo}
             alt="NETFLIX by Mayte & Olga"
-            className="h-8 md:h-10 object-contain"
+             className="h-11 md:h-19 object-contain"
           />
 
           <div className="flex flex-wrap justify-center gap-3 w-full max-w-2xl mx-auto md:space-around md:mx-0 md:w-auto">
@@ -53,21 +49,6 @@ const Nav = () => {
           <SearchBar />
         </div>
       </div>
-
-      {/* 👇 CURVA VERSO IL BASSO + LINEA COLORATA 👇 */}
-      <div 
-        className="absolute bottom-0 left-0 right-0 h-20 bg-black"
-        style={{
-          clipPath: 'path("M0,0 H100% V80% C80%,80% 20%,80% 0,80% Z")'
-        }}
-      ></div>
-
-      <div 
-        className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-red-600 via-purple-600 to-red-600"
-        style={{
-          transform: 'translateY(-1px)',
-        }}
-      ></div>
     </div>
   );
 };
