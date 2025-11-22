@@ -1,8 +1,19 @@
+/**
+ * Footer component for the application.
+ * 
+ * Features:
+ * - Static links grouped by category (Support, Account, Info, Media)
+ * - Header section with contact info
+ * - Footer note with copyright and reCAPTCHA info
+ * - Fully responsive with Tailwind CSS
+ * 
+ * Usage:
+ * <Footer />
+ */
 const Footer = () => {
   return (
     <div className="bg-[#141414] text-gray-400 text-[16px] w-full">
       <div className="max-w-6xl mx-auto px-4 py-10">
-
         {/* Header */}
         <div className="text-center mb-8">
           <div className="text-lg font-semibold text-gray-300 underline">
@@ -10,22 +21,25 @@ const Footer = () => {
           </div>
         </div>
 
-{/* Links */}
+        {/* Links */}
         <div className="flex justify-center flex-wrap gap-8 mb-8">
-       
           <div className="w-[200px]">
             <ul className="space-y-2 list-none ">
-              <li className="font-medium text-white hover:underline">Support</li>
+              <li className="font-medium text-white hover:underline">
+                Support
+              </li>
               <li className="hover:underline">FAQ</li>
               <li className="hover:underline">Help Center</li>
               <li className="hover:underline">Contact Us</li>
               <li className="hover:underline">Report a Problem</li>
             </ul>
           </div>
-      
+
           <div className="w-[200px]">
             <ul className="space-y-2 list-none">
-              <li className="font-medium text-white hover:underline">Your Account</li>
+              <li className="font-medium text-white hover:underline">
+                Your Account
+              </li>
               <li className="hover:underline">Sign In</li>
               <li className="hover:underline">Create Account</li>
               <li className="hover:underline">Your Devices</li>
@@ -35,7 +49,9 @@ const Footer = () => {
 
           <div className="w-[200px]">
             <ul className="space-y-2 list-none">
-              <li className="font-medium text-white hover:underline">Information</li>
+              <li className="font-medium text-white hover:underline">
+                Information
+              </li>
               <li className="hover:underline">About Us</li>
               <li className="hover:underline">Careers</li>
               <li className="hover:underline">Terms of Use</li>
@@ -45,7 +61,9 @@ const Footer = () => {
 
           <div className="w-[200px]">
             <ul className="space-y-2 list-none">
-              <li className="font-medium text-white hover:underline">For Media</li>
+              <li className="font-medium text-white hover:underline">
+                For Media
+              </li>
               <li className="hover:underline">Press Releases</li>
               <li className="hover:underline">Official Blog</li>
               <li className="hover:underline">Events</li>

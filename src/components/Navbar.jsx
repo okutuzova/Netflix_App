@@ -2,7 +2,24 @@ import { useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { useFavorites } from "../hooks/useFavorites";
 import bgimg from "../assets/Netflix-background-banner.jpg";
-
+/**
+ * Navigation and Hero Component
+ *
+ * Renders the main site navigation with:
+ * - Brand logo/title
+ * - Navigation buttons (Movies, TV Series, Favorites)
+ * - Background banner image with overlay
+ * - Hero section with headline, subheadline, and a SearchBar component
+ *
+ * Features:
+ * - Dynamic display of number of favorite items using `useFavorites` hook
+ * - Navigation handled via `useNavigate` from react-router-dom
+ * - Fully responsive layout for mobile and desktop
+ *
+ * @component
+ * @example
+ * <Nav />
+ */
 const Nav = () => {
   const { favorites } = useFavorites();
   const navigate = useNavigate();
@@ -22,22 +39,24 @@ const Nav = () => {
 
             <div className="flex flex-wrap justify-center gap-3 w-full max-w-2xl mx-auto md:space-around md:mx-0 md:w-auto">
               <div className="flex w-full md:w-auto gap-3">
-                <button 
+                <button
                   onClick={() => navigate("/movies")}
-                className="bg-red-600 mr-7 px-4 py-1.5 flex-1 rounded whitespace-nowrap">
+                  className="bg-red-600  hover:bg-red-700 mr-7 px-4 py-1.5 flex-1 rounded whitespace-nowrap transition transform hover:-translate-y-0.5 shadow-md hover:shadow-lg cursor-pointer"
+                >
                   Movies
                 </button>
-                <button 
-                 onClick={() => navigate("/series")}
-                className="bg-red-600 mr-7 px-4 py-1.5 flex-1 rounded whitespace-nowrap">
+                <button
+                  onClick={() => navigate("/series")}
+                  className="bg-red-600  hover:bg-red-700 mr-7 px-4 py-1.5 flex-1 rounded whitespace-nowrap transition transform hover:-translate-y-0.5 shadow-md hover:shadow-lg cursor-pointer"
+                >
                   TV Series
                 </button>
-                <button 
-                onClick={() => navigate("/favorites")}
-                className="bg-red-600 mr-7 px-4 py-1.5 flex-1 rounded whitespace-nowrap">
-                  Favorites ({favorites.length})
+                <button
+                  onClick={() => navigate("/favorites")}
+                  className="bg-red-600 hover:bg-red-700 mr-7 px-4 py-1.5 flex-1 rounded whitespace-nowrap transition transform hover:-translate-y-0.5 shadow-md hover:shadow-lg cursor-pointer"
+                >
+                  Favorites ({favorites.length || 0})
                 </button>
-
               </div>
             </div>
           </div>
@@ -55,22 +74,7 @@ const Nav = () => {
               Ready to watch? Choose your movie for tonight...
             </p>
 
-
             <SearchBar />
-            {/* <div className="py-5 flex flex-col sm:flex-row gap-3 items-center">
-              <input
-                className="border p-2 border-gray-500 px-4 w-full sm:w-auto min-w-65"
-                type="text"
-                placeholder="Insert the title "
-              />
-              <button className="bg-red-600 p-2 px-5 rounded w-full sm:w-auto">
-                Search
-              </button>
-            </div> */}
-
-
-
-
           </div>
         </div>
       </div>

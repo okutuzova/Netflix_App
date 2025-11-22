@@ -1,10 +1,8 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate  } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getMovieById } from "../api/tmdb";
+import { getMovieById, getTopRatedMovies } from "../api/tmdb";
 import { useFavorites } from "../hooks/useFavorites";
-import { useNavigate } from "react-router-dom";
 import MovieRow from "../components/MovieRow";
-import { getTopRatedMovies } from "../api/tmdb";
 import placeholderMovie from "../assets/placeholderMovie.jpg";
 import NavbarSecond from "../components/NavbarSecond";
 
@@ -28,7 +26,6 @@ export default function MovieDetail() {
       setError(null);
       try {
         const data = await getMovieById(id);
-        console.log("Movie data:", data); // debug
         setMovie(data);
       } catch (err) {
         setError(err.message);
@@ -76,32 +73,7 @@ style={{
 
 
  {/* Navbar */}
- {/* <nav className="absolute top-0 left-0 right-0 z-50 bg-black bg-opacity-80 px-6 py-4 flex justify-between items-center">
-        <div className="flex items-center gap-8">
-          <img
-            src={"/netflix-icon.png"}
-            alt="NETFLIX"
-            className="h-8 md:h-10 object-contain"
-            onClick={() => navigate("/")}
-          />
-          
-        </div>
-        <div className="flex items-center gap-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 cursor-pointer"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-              clipRule="evenodd"
-            />
-          </svg>
-         
-        </div>
-      </nav> */}
+
 
       <NavbarSecond />
 
@@ -122,7 +94,7 @@ style={{
             alt={movie.title}
             className="w-full h-auto object-cover"
           />
-          {/* Overlay con sfumatura ai lati */}
+          {/* Overlay with shadows on sides */}
           <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-60"></div>
         </div>
         </div>
@@ -177,20 +149,7 @@ style={{
               My list
               
             </button>
-            <button className="border border-gray-400 text-white px-4 py-2 rounded-md font-semibold flex items-center gap-2 hover:bg-gray-700 transition">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </button>
+           
             
 
             <button

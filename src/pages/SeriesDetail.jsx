@@ -1,9 +1,9 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getTVById, getTopRatedTV } from "../api/tmdb";
 import { useFavorites } from "../hooks/useFavorites";
-import { useNavigate } from "react-router-dom";
 import MovieRow from "../components/MovieRow";
+import NavbarSecond from "../components/NavbarSecond";
 import placeholderMovie from "../assets/placeholderMovie.jpg";
 
 export default function SeriesDetail() {
@@ -47,8 +47,10 @@ export default function SeriesDetail() {
 
   return (
     <div className="relative min-h-screen bg-black text-white">
+     
       {/* Background */}
       <div className="absolute inset-0">
+
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat filter blur-sm opacity-200"
           style={{
@@ -59,24 +61,16 @@ export default function SeriesDetail() {
             })`,
           }}
         ></div>
+        {/* Black overlay */}
         <div className="absolute inset-0 bg-black opacity-70"></div>
       </div>
 
       {/* Navbar */}
-      <nav className="absolute top-0 left-0 right-0 z-50 bg-black bg-opacity-80 px-6 py-4 flex justify-between items-center">
-        <div className="flex items-center gap-8">
-          <img
-            src={"/netflix-icon.png"}
-            alt="NETFLIX"
-            className="h-8 md:h-10 object-contain"
-            onClick={() => navigate("/")}
-          />
-        </div>
-      </nav>
+      <NavbarSecond />
 
       {/* Main Content */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 pt-60 pb-16 flex flex-col lg:flex-row gap-8 items-start">
-        {/* Poster */}
+       {/* Poster Section - Left Side */}
         <div className="flex-shrink-0 w-full lg:w-1/3 flex justify-center">
           <div className="relative rounded-lg overflow-hidden shadow-2xl transform hover:scale-105 transition duration-300 max-w-md">
             <img
@@ -88,14 +82,16 @@ export default function SeriesDetail() {
               alt={series.name}
               className="w-full h-auto object-cover"
             />
+             {/*Overlay with shadows on sides */}
             <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-60"></div>
           </div>
         </div>
 
-        {/* Details */}
+         {/* Details Section - Right Side*/}
         <div className="flex-1 flex flex-col gap-4">
           <h1 className="text-8xl font-bold">{series.name}</h1>
 
+{/* Info Line: Year, Duration, Rating */}
           <div className="flex items-center gap-4 text-xl text-gray-300">
             <span>{series.first_air_date?.split("-")[0] || "N/A"}</span>
             <span>•</span>
@@ -106,8 +102,20 @@ export default function SeriesDetail() {
 
           {/* Buttons */}
           <div className="flex gap-4 mt-4">
-            <button className="bg-white text-black px-4 py-2 rounded-md font-semibold flex items-center gap-2 hover:bg-gray-200 transition">
-             Play
+          <button className="bg-white text-black px-4 py-2 rounded-md font-semibold flex items-center gap-2 hover:bg-gray-200 transition">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.188A1 1 0 008 8v4a1 1 0 001.555.812l3 1.5A1 1 0 0014 14V8a1 1 0 00-1.555-.812l-3-1.5z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              Play
             </button>
 
             <button 

@@ -20,6 +20,18 @@ export default function MovieRow({
   const scrollRef = useRef(null);
   const navigate = useNavigate();
 
+  /**
+ * Scrolls the horizontal container left or right by approximately 90% of its width.
+ * Behavior:
+ * - Retrieves the DOM element from `scrollRef.current`.
+ * - Calculates the scroll distance as 90% of the container's visible width (`clientWidth`).
+ * - Updates the `scrollLeft` position of the container smoothly.
+ * - If `scrollRef.current` is null (not mounted), the function does nothing.
+ *
+ * Example usage:
+ * scroll('left');  // Scrolls the container to the left
+ * scroll('right'); // Scrolls the container to the right
+ */
   const scroll = (direction) => {
     const container = scrollRef.current;
     if (!container) return;
@@ -28,7 +40,7 @@ export default function MovieRow({
     const target = direction === "left" ? container.scrollLeft - scrollAmount : container.scrollLeft + scrollAmount;
     container.scrollTo({
       left: target,
-      behavior: "smooth",
+      behavior: "smooth", // triggers smooth animated scrolling
     });
   };
 
@@ -63,7 +75,7 @@ export default function MovieRow({
       </button>
       
       <div className=" px-30 text-white pt-10">
-        <h2 className="font-bold text-2xl">{title}</h2>
+        <h2 className="font-bold text-2xl mb-2">{title}</h2>
 
 
         <div 
