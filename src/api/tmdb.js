@@ -31,6 +31,8 @@ export const getTopRatedMovies = () => fetchFromTMDB("/movie/top_rated");
 export const getUpcomingMovies = () => fetchFromTMDB("/movie/upcoming");
 export const getPopularMovies = () => fetchFromTMDB("/movie/popular");
 export const getNowPlayingMovies = () => fetchFromTMDB("/movie/now_playing");
+export const getSimilarMovies = (movieId) =>
+    fetchFromTMDB(`/movie/${movieId}/similar`).then((data) => data.results || []);
 export const getMovieById = (id) =>
     fetchFromTMDB(`/movie/${id}?append_to_response=credits,videos,releases`);
 
@@ -38,6 +40,8 @@ export const getMovieById = (id) =>
 export const getTrendingTV = () => fetchFromTMDB("/trending/tv/week");
 export const getTopRatedTV = () => fetchFromTMDB("/tv/top_rated");
 export const getPopularTV = () => fetchFromTMDB("/tv/popular");
+export const getSimilarSeries = (seriesId) =>
+    fetchFromTMDB(`/tv/${seriesId}/similar`).then((data) => data.results || []);  
 export const getTVById = (id) =>
     fetchFromTMDB(`/tv/${id}?append_to_response=credits,videos`);
 

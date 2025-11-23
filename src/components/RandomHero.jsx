@@ -34,6 +34,7 @@ export default function RandomHero({ fetchFunction, type = "movie" }) {
 
   if (error) return <div className="text-red-500">Failed to load hero</div>;
 
+  // random movie selection
   const item = data[Math.floor(Math.random() * data.length)];
 
   return (

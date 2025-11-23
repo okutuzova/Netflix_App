@@ -1,4 +1,5 @@
 import MovieRow from "../components/MovieRow";
+import NavbarSecond from "../components/NavbarSecond";
 import RandomHero from "../components/RandomHero";
 import { 
   getTrendingMovies,
@@ -10,7 +11,8 @@ import {
 
 export default function MoviesPage() {
   return (
-    <div className="text-white space-y-10 pb-20">
+    <div className="relative min-h-screen bg-black text-white">
+       <NavbarSecond />
 
       {/* Random hero film */}
       <RandomHero fetchFunction={getTrendingMovies} />

@@ -1,16 +1,29 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getTVById, getTopRatedTV } from "../api/tmdb";
+import { getTVById, getTopRatedTV, getSimilarSeries } from "../api/tmdb";
 import { useFavorites } from "../hooks/useFavorites";
 import MovieRow from "../components/MovieRow";
 import NavbarSecond from "../components/NavbarSecond";
 import placeholderMovie from "../assets/placeholderMovie.jpg";
 
+/**
+ * SeriesDetail Component
+ *
+ * Displays detailed information about a single TV series.
+ * Includes poster, overview, cast, genres, favorite toggling.
+ *
+ * Handles:
+ * - Loading and error states for series fetch
+ * - Favorite management via useFavorites hook
+ */
 export default function SeriesDetail() {
   const { id } = useParams();
   const [series, setSeries] = useState(null);
+  const [similarSeries, setSimilarSeries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [similarLoading, setSimilarLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState("overview");
   const navigate = useNavigate();
   const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
 
@@ -19,7 +32,7 @@ export default function SeriesDetail() {
       ? removeFromFavorites(series.id)
       : addToFavorites(series);
   };
-
+// fetch main series details
   useEffect(() => {
     async function fetchSeries() {
       setLoading(true);
@@ -36,6 +49,23 @@ export default function SeriesDetail() {
 
     fetchSeries();
   }, [id]);
+
+  // fetch similar series
+  useEffect(() => {
+    async function fetchSimilarSeries() {
+      if (!series) return;
+      setSimilarLoading(true);
+      try {
+        const data = await getSimilarSeries(id);
+        setSimilarSeries(data);
+      } catch (err) {
+        console.error("Error fetching similar series:", err);
+      } finally {
+        setSimilarLoading(false);
+      }
+    }
+    if (activeTab === "similar") fetchSimilarSeries();
+  }, [activeTab, series]);
 
   if (loading) return <div className="text-gray-400 text-center p-4 animate-pulse">Loading...</div>;
   if (error) return <div className="text-red-500 text-center p-4">Error: {error}</div>;
@@ -200,16 +230,99 @@ export default function SeriesDetail() {
 
           {/* Tabs */}
           <div className="mt-8 border-t border-gray-700 pt-4">
-            <div className="flex space-x-6">
-              <button className="text-white font-semibold border-b-2 border-white pb-2">
+          <div className="flex space-x-6">
+              <button
+                onClick={() => setActiveTab("overview")}
+                className={
+                  activeTab === "overview"
+                    ? "text-white font-semibold border-b-2 border-white pb-2"
+                    : ""
+                }
+              >
                 Overview
               </button>
-              <button className="text-gray-400 hover:text-white transition">
+              <button
+                onClick={() => setActiveTab("similar")}
+                className={
+                  activeTab === "similar"
+                    ? "text-gray-400 hover:text-white transition"
+                    : ""
+                }
+              >
                 Same titles
               </button>
-              <button className="text-gray-400 hover:text-white transition">
+              <button
+                onClick={() => setActiveTab("details")}
+                className={
+                  activeTab === "details"
+                    ? "text-gray-400 hover:text-white transition"
+                    : ""
+                }
+              >
                 Details
               </button>
+            </div>
+
+            {/* Tab Content */}
+            <div className="mt-4">
+              {activeTab === "overview" && (
+                <div>
+                  <p className="text-gray-200">
+                    Original Language: {series.original_language}
+                  </p>
+                  <p className="text-gray-200">Number of Episodes: {series.number_of_episodes}</p>
+                  <p className="text-gray-200">Seasons: {series.number_of_seasons}</p>
+              
+                </div>
+              )}
+
+              {activeTab === "similar" && (
+                <div>
+                  {similarLoading && <div>Loading similar series...</div>}
+                  {!similarLoading && similarSeries.length === 0 && (
+                    <div>No similar movies found.</div>
+                  )}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {similarSeries.map((m) => (
+                      <div
+                        key={m.id}
+                        onClick={() => navigate(`/series/${m.id}`)}
+                        className="cursor-pointer"
+                      >
+                        <img
+                          src={
+                            m.poster_path
+                              ? `https://image.tmdb.org/t/p/w200${m.poster_path}`
+                              : placeholderMovie
+                          }
+                          alt={m.title}
+                        />
+                        <p>{m.title}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {activeTab === "details" && (
+                <div>
+                  <p>Episode Runtime: {series.episode_run_time}</p>
+                  
+                  <p>
+                  Status:{" "}
+                    {series.status || "N/A"}
+                  </p>
+
+                  {/* Producers */}
+                  <p>
+                    Producer(s):{" "}
+                    {series.credits?.crew
+                      ?.filter((c) => c.job === "Producer")
+                      .map((p) => p.name)
+                      .join(", ") || "N/A"}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>

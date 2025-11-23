@@ -11,17 +11,6 @@ A React application to browse, search, and manage your favorite movies and serie
 - Error handling for unmatched routes.
 
 
-## Technologies Used
-
-* **React** v19.1.1
-* **React DOM** v19.1.1
-* **React Router DOM** v7.9.5
-* **Tailwind CSS** v4.1.17
-* **Vite** v7.1.7
-* **Lucide React** v0.553.0
-* **TMDb API** (for movie/series data)
-* **Context API** (for managing favorites)
-
 ### TMDB API Calls (src/api/tmdb.js):
 This project uses a dedicated utility module to interact with TMDb API. The module provides organized functions to fetch movies, TV series, and search results.
 
@@ -31,6 +20,7 @@ This project uses a dedicated utility module to interact with TMDb API. The modu
 * **getUpcomingMovies()** – Fetches movies that are scheduled to release soon.
 * **getPopularMovies()** – Fetches movies currently popular among users.
 * **getNowPlayingMovies()** – Fetches movies currently playing in theaters.
+* **getSimilarMovies()** – Fetches similar movies.
 * **getMovieById(id)** – Fetches full details for a specific movie, including credits, videos, and release information. Requires a TMDb movie ID.
 
 #### TV Series
@@ -43,7 +33,6 @@ This project uses a dedicated utility module to interact with TMDb API. The modu
 * **searchMovie(query)** – Searches movies by a query string. Returns an array of movie results matching the search term.
 
 ### Implementation Details
-
 * All functions use a **generic `fetchFromTMDB(endpoint)`** utility that handles:
 
   * Adding the **base URL** and **authorization token**.
@@ -66,6 +55,16 @@ The useRef hook is used to create a persistent reference to a DOM element withou
 The useFetch is a custom hook created to encapsulate the logic for states handling.
 * **SearchBar** – Handles user input for searching movies or TV shows, displays live results in a dropdown with poster and title. 
 * **Footer** – Displays the app’s footer.
+
+### Pages
+
+* **ErrorPage** – Displays a custom error page when a route is not found.
+* **FavoritesPage** – Displays a list of the user’s favorite movies and TV shows.
+* **Home** – The homepage of the app, displays the hero section, movie rows, and a footer.
+* **MovieDetail** – Displays detailed information about a specific movie.
+* **Movies** – Displays a list of movies.
+* **Series** – Displays a list of TV shows.
+* **SeriesDetail** – Displays detailed information about a specific TV show.
 
 
 ### Context
@@ -97,8 +96,49 @@ Usage: Wrap your app in <FavoritesProvider> and use useFavorites() hook in compo
 `useFavorites` is a convenience hook to easily access favorites data and functions from any component.It wraps `useContext(FavoritesContext)`, so there is no need to import `useContext` and `FavoritesContext` every time.
 `useFetch` is a reusable custom hook for fetching data asynchronously. It is used in a MovieRow component to fetch the array results. 
 
-## File Tree:
+## Technologies Used
 
+* **React** v19.1.1
+* **React DOM** v19.1.1
+* **React Router DOM** v7.9.5
+* **Tailwind CSS** v4.1.17
+* **Vite** v7.1.7
+* **Lucide React** v0.553.0
+* **TMDb API** (for movie/series data)
+* **Context API** (for managing favorites)
+
+## Getting Started
+### Prerequisites
+- Node.js (v14 or higher)
+- npm (v6 or higher)
+### Installation
+1. Clone the repository:
+```bash
+git clone
+git clone https://github.com/okutuzova/Netflix_App.git
+```
+2. Navigate to the project directory:
+```bash
+cd Netflix
+```
+3. Install the dependencies:
+```bash
+npm install
+```
+4. Create a .env file in the root directory and add your TMDb API key:
+```bash
+VITE_APP_BEARER_TOKEN=YOUR_BEARER_TOKEN_HERE
+```
+5. Start the development server:
+```bash
+npm run dev
+```
+6. The app should now be running on
+```bash
+URL_ADDRESS:5173/
+```
+
+## File Tree:
 
 ```
 ├── 📁 public
