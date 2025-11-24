@@ -28,8 +28,9 @@ export default function MovieDetail() {
   const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
 
   const toggleFavorite = (movie) => {
-    isFavorite(movie.id)
-      ? removeFromFavorites(movie.id)
+    const type = movie.type || "movie";
+    isFavorite(movie.id, type)
+      ? removeFromFavorites(movie.id, type)
       : addToFavorites(movie);
   };
 

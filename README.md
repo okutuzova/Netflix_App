@@ -1,12 +1,17 @@
 # Netflix Clone App - by Mayte Cachi and Olga Kutuzova
-A React application to browse, search, and manage your favorite movies and series using TMDb API. The app provides a smooth user experience with search suggestions, detail pages, and a favorites system.
+A React application to browse, search, and manage your favorite movies and series using TMDb API. The app provides a smooth user experience with search suggestions, detail pages, and a favorites system. 
+```bash
+Github: https://github.com/okutuzova/Netflix_App.git
+```
 
 ## Features
 
 - Search Bar with live suggestions as you type.
 - Movies and Series listing pages.
-- Detail pages for movies and series.
-- Favorites management using React Context.
+- Detail pages for movies and series:
+Each movie or series has a dedicated detail page featuring poster, backdrop, overview, cast, genres, ratings, and similar content recommendations.
+- Favorites management using React Context:
+Users can add or remove movies and TV series to a personalized favorites list, filter by type (movies, series, or all), and navigate their list seamlessly.
 - Responsive design with Tailwind CSS.
 - Error handling for unmatched routes.
 
@@ -27,7 +32,9 @@ This project uses a dedicated utility module to interact with TMDb API. The modu
 * **getTrendingTV()** – Fetches trending TV shows of the week.
 * **getTopRatedTV()** – Fetches the top-rated TV shows.
 * **getPopularTV()** – Fetches currently popular TV shows.
+* **getSimilarSeries()** – Fetches similar TV shows.
 * **getTVById(id)** – Fetches full details for a specific TV show, including credits and videos. Requires a TMDb TV ID.
+
 
 #### Search
 * **searchMovie(query)** – Searches movies by a query string. Returns an array of movie results matching the search term.
@@ -60,6 +67,10 @@ The useFetch is a custom hook created to encapsulate the logic for states handli
 
 * **ErrorPage** – Displays a custom error page when a route is not found.
 * **FavoritesPage** – Displays a list of the user’s favorite movies and TV shows.
+It allows users to:
+- Filter favorites by type: All, Movies, or TV Series.
+- Remove items from the favorites list.
+
 * **Home** – The homepage of the app, displays the hero section, movie rows, and a footer.
 * **MovieDetail** – Displays detailed information about a specific movie.
 * **Movies** – Displays a list of movies.

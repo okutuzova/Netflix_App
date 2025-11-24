@@ -20,7 +20,7 @@ export default function NavbarSecond() {
   const navigate = useNavigate();
 
   return (
-    <nav className="absolute top-0 left-0 right-0 z-50 bg-black bg-opacity-80 px-6 py-4 flex items-center justify-between">
+    <nav className="absolute top-0 left-0 right-0 z-50 bg-black/5 backdrop-blur-sm px-6 py-4 flex items-center justify-between">
       {/* Left: Logo */}
       <div className="flex items-center">
         <img

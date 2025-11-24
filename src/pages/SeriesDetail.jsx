@@ -27,12 +27,15 @@ export default function SeriesDetail() {
   const navigate = useNavigate();
   const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
 
-  const toggleFavorite = (series) => {
-    isFavorite(series.id)
-      ? removeFromFavorites(series.id)
-      : addToFavorites(series);
+  const toggleFavorite = () => {
+    const type = "series";
+    if (isFavorite(series.id, type)) {
+      removeFromFavorites(series.id, type);
+    } else {
+      addToFavorites({ ...series, type });
+    }
   };
-// fetch main series details
+  // fetch main series details
   useEffect(() => {
     async function fetchSeries() {
       setLoading(true);
@@ -65,11 +68,18 @@ export default function SeriesDetail() {
       }
     }
     if (activeTab === "similar") fetchSimilarSeries();
-  }, [activeTab, series]);
+  }, [activeTab, series, id]);
 
-  if (loading) return <div className="text-gray-400 text-center p-4 animate-pulse">Loading...</div>;
-  if (error) return <div className="text-red-500 text-center p-4">Error: {error}</div>;
-  if (!series) return <div className="text-gray-400 text-center p-4">No series data</div>;
+  if (loading)
+    return (
+      <div className="text-gray-400 text-center p-4 animate-pulse">
+        Loading...
+      </div>
+    );
+  if (error)
+    return <div className="text-red-500 text-center p-4">Error: {error}</div>;
+  if (!series)
+    return <div className="text-gray-400 text-center p-4">No series data</div>;
 
   const cast = series.credits?.cast?.slice(0, 5) || [];
   const genres = series.genres?.map((g) => g.name).join(", ") || "N/A";
@@ -77,10 +87,8 @@ export default function SeriesDetail() {
 
   return (
     <div className="relative min-h-screen bg-black text-white">
-     
       {/* Background */}
       <div className="absolute inset-0">
-
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat filter blur-sm opacity-200"
           style={{
@@ -100,7 +108,7 @@ export default function SeriesDetail() {
 
       {/* Main Content */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 pt-60 pb-16 flex flex-col lg:flex-row gap-8 items-start">
-       {/* Poster Section - Left Side */}
+        {/* Poster Section - Left Side */}
         <div className="flex-shrink-0 w-full lg:w-1/3 flex justify-center">
           <div className="relative rounded-lg overflow-hidden shadow-2xl transform hover:scale-105 transition duration-300 max-w-md">
             <img
@@ -112,16 +120,16 @@ export default function SeriesDetail() {
               alt={series.name}
               className="w-full h-auto object-cover"
             />
-             {/*Overlay with shadows on sides */}
+            {/*Overlay with shadows on sides */}
             <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-60"></div>
           </div>
         </div>
 
-         {/* Details Section - Right Side*/}
+        {/* Details Section - Right Side*/}
         <div className="flex-1 flex flex-col gap-4">
           <h1 className="text-8xl font-bold">{series.name}</h1>
 
-{/* Info Line: Year, Duration, Rating */}
+          {/* Info Line: Year, Duration, Rating */}
           <div className="flex items-center gap-4 text-xl text-gray-300">
             <span>{series.first_air_date?.split("-")[0] || "N/A"}</span>
             <span>•</span>
@@ -132,7 +140,7 @@ export default function SeriesDetail() {
 
           {/* Buttons */}
           <div className="flex gap-4 mt-4">
-          <button className="bg-white text-black px-4 py-2 rounded-md font-semibold flex items-center gap-2 hover:bg-gray-200 transition">
+            <button className="bg-white text-black px-4 py-2 rounded-md font-semibold flex items-center gap-2 hover:bg-gray-200 transition">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -148,9 +156,10 @@ export default function SeriesDetail() {
               Play
             </button>
 
-            <button 
-             onClick={() => navigate("/favorites")}
-            className="border border-gray-400 text-white px-4 py-2 rounded-md font-semibold flex items-center gap-2 hover:bg-gray-700 transition">
+            <button
+              onClick={() => navigate("/favorites")}
+              className="border border-gray-400 text-white px-4 py-2 rounded-md font-semibold flex items-center gap-2 hover:bg-gray-700 transition"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -165,57 +174,51 @@ export default function SeriesDetail() {
                 />
               </svg>
               My list
-              
             </button>
-            <button
-  onClick={() => toggleFavorite(series, "series")}
-  className={`px-4 py-2 rounded-md font-semibold flex items-center gap-2 transition 
-    ${isFavorite(series.id)
-      ? "bg-red-600 text-white border-red-600 hover:bg-red-700"
-      : "border border-gray-400 text-white hover:bg-gray-700"}
-  `}
->
-  {isFavorite(series.id, "series") ? (
-    // Filled heart
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-5 w-5"
-      fill="currentColor"
-      viewBox="0 0 24 24"
-      stroke="none"
-    >
-      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 
-               4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 
-               14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 
-               6.86-8.55 11.54L12 21.35z" />
-    </svg>
-  ) : (
-    // Empty heart
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-5 w-5"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 
-           4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 
-           14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 
-           6.86-8.55 11.54L12 21.35z"
-      />
-    </svg>
-  )}
 
-  
-</button>
+            <button
+              onClick={toggleFavorite}
+              className={`px-4 py-2 rounded-md font-semibold flex items-center gap-2 transition ${
+                isFavorite(series.id, "series")
+                  ? "bg-red-600 text-white border-red-600 hover:bg-red-700"
+                  : "border border-gray-400 text-white hover:bg-gray-700"
+              } `}
+            >
+              {" "}
+              {isFavorite(series.id, "series") ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  {" "}
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />{" "}
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  {" "}
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                  />{" "}
+                </svg>
+              )}{" "}
+            </button>
           </div>
 
           {/* Overview */}
-          <p className="mt-4 text-gray-200 leading-relaxed">{series.overview}</p>
+          <p className="mt-4 text-gray-200 leading-relaxed">
+            {series.overview}
+          </p>
 
           {/* Cast & Genres */}
           <div className="mt-4 text-sm text-gray-300">
@@ -230,7 +233,7 @@ export default function SeriesDetail() {
 
           {/* Tabs */}
           <div className="mt-8 border-t border-gray-700 pt-4">
-          <div className="flex space-x-6">
+            <div className="flex space-x-6">
               <button
                 onClick={() => setActiveTab("overview")}
                 className={
@@ -270,9 +273,12 @@ export default function SeriesDetail() {
                   <p className="text-gray-200">
                     Original Language: {series.original_language}
                   </p>
-                  <p className="text-gray-200">Number of Episodes: {series.number_of_episodes}</p>
-                  <p className="text-gray-200">Seasons: {series.number_of_seasons}</p>
-              
+                  <p className="text-gray-200">
+                    Number of Episodes: {series.number_of_episodes}
+                  </p>
+                  <p className="text-gray-200">
+                    Seasons: {series.number_of_seasons}
+                  </p>
                 </div>
               )}
 
@@ -306,12 +312,9 @@ export default function SeriesDetail() {
 
               {activeTab === "details" && (
                 <div>
-                  <p>Episode Runtime: {series.episode_run_time}</p>
-                  
-                  <p>
-                  Status:{" "}
-                    {series.status || "N/A"}
-                  </p>
+                  <p>Origin country: {series.origin_country || "N/A"}</p>
+
+                  <p>Status: {series.status || "N/A"}</p>
 
                   {/* Producers */}
                   <p>

@@ -15,7 +15,7 @@
 }
 
 /* Scrollbar for dropdown menu */
-/* В глобальный CSS или внутри компонента через <style jsx> */
+
 .scrollbar-thin {
   scrollbar-width: thin; /* Firefox */
   scrollbar-color: #e50914 #1f1f1f; /* Firefox: thumb color + track color */

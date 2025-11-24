@@ -43,20 +43,34 @@ export function FavoritesProvider({ children }) {
     }
   }, [favorites]);
 
-  const addToFavorites = (item, type = "movie") => {
+  // type detecting
+  const detectType = (item, providedType) => {
+    if (providedType) return providedType;
+   
+    if (item.media_type === "movie") return "movie";
+    if (item.media_type === "tv") return "series";
+
+    if (item.title) return "movie";
+    if (item.name) return "series";
+
+    return "movie";  // fallback 
+  }
+
+  const addToFavorites = (item, type) => {
+    const finalType = detectType(item, type);
     const favoriteItem = {
       ...item,
-      type,
+      type: finalType,
       displayName: item.title || item.name,
     };
     setFavorites((prev) =>
-      prev.some((m) => m.id === item.id && m.type === type)
+      prev.some((m) => m.id === item.id && m.type === finalType)
         ? prev
         : [...prev, favoriteItem]
     );
   };
 
-  const removeFromFavorites = (id, type = "movie") => {
+  const removeFromFavorites = (id, type) => {
     setFavorites((prev) =>
       prev.filter((m) => !(m.id === id && m.type === type))
     );

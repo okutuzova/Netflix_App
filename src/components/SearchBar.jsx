@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { searchMovie } from "../api/tmdb";
+import placeholderMovie from "../assets/placeholderMovie.jpg";
 /**
  * SearchBar Component
  *
@@ -123,7 +124,7 @@ export default function SearchBar() {
                 src={
                   movie.poster_path
                     ? `https://image.tmdb.org/t/p/w92${movie.poster_path}`
-                    : "https://via.placeholder.com/60x90?text=No+Image"
+                    : placeholderMovie
                 }
                 alt={movie.title}
                 className="w-12 h-16 object-cover rounded"
@@ -135,7 +136,7 @@ export default function SearchBar() {
       )}
 
       {/* Appearance animation */}
-      <style jsx>{`
+      <style>{`
         @keyframes slideDown {
           0% {
             opacity: 0;
