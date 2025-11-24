@@ -1,5 +1,6 @@
 import MovieRow from "../components/MovieRow";
 import RandomHero from "../components/RandomHero";
+import NavbarTransparent from "../components/NavbarTrasparent";
 import { 
   getTrendingMovies,
   getTopRatedMovies,
@@ -10,8 +11,10 @@ import {
 
 export default function MoviesPage() {
   return (
+    <div className="bg-black min-h-screen">
+    <NavbarTransparent />
     <div className="text-white space-y-10 pb-20">
-
+     
       {/* Random hero film */}
       <RandomHero fetchFunction={getTrendingMovies} />
 
@@ -21,5 +24,9 @@ export default function MoviesPage() {
       <MovieRow title="Popular" fetchFunction={getPopularMovies} type="movie"/>
       <MovieRow title="Now Playing" fetchFunction={getNowPlayingMovies} type="movie"/>
     </div>
+    </div>
   );
 }
+
+
+
