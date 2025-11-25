@@ -1,10 +1,12 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getTVById, getTopRatedTV, getSimilarSeries } from "../api/tmdb";
-import { useFavorites } from "../hooks/useFavorites";
+import { useToggleFavorite } from "../hooks/useToggleFavorite";
 import MovieRow from "../components/MovieRow";
 import NavbarSecond from "../components/NavbarSecond";
 import placeholderMovie from "../assets/placeholderMovie.jpg";
+import MediaPoster from "../components/MediaDetail/MediaPoster";
+import MediaBackground from "../components/MediaDetail/MediaBackground";
 
 /**
  * SeriesDetail Component
@@ -25,16 +27,8 @@ export default function SeriesDetail() {
   const [similarLoading, setSimilarLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("overview");
   const navigate = useNavigate();
-  const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
+  const { toggleFavorite, isFavorite } = useToggleFavorite();
 
-  const toggleFavorite = () => {
-    const type = "series";
-    if (isFavorite(series.id, type)) {
-      removeFromFavorites(series.id, type);
-    } else {
-      addToFavorites({ ...series, type });
-    }
-  };
   // fetch main series details
   useEffect(() => {
     async function fetchSeries() {
@@ -88,20 +82,7 @@ export default function SeriesDetail() {
   return (
     <div className="relative min-h-screen bg-black text-white">
       {/* Background */}
-      <div className="absolute inset-0">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat filter blur-sm opacity-200"
-          style={{
-            backgroundImage: `url(${
-              series.backdrop_path
-                ? `https://image.tmdb.org/t/p/original${series.backdrop_path}`
-                : placeholderMovie
-            })`,
-          }}
-        ></div>
-        {/* Black overlay */}
-        <div className="absolute inset-0 bg-black opacity-70"></div>
-      </div>
+      <MediaBackground media={series} />
 
       {/* Navbar */}
       <NavbarSecond />
@@ -109,21 +90,7 @@ export default function SeriesDetail() {
       {/* Main Content */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 pt-60 pb-16 flex flex-col lg:flex-row gap-8 items-start">
         {/* Poster Section - Left Side */}
-        <div className="flex-shrink-0 w-full lg:w-1/3 flex justify-center">
-          <div className="relative rounded-lg overflow-hidden shadow-2xl transform hover:scale-105 transition duration-300 max-w-md">
-            <img
-              src={
-                series.poster_path
-                  ? `https://image.tmdb.org/t/p/w500${series.poster_path}`
-                  : placeholderMovie
-              }
-              alt={series.name}
-              className="w-full h-auto object-cover"
-            />
-            {/*Overlay with shadows on sides */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-60"></div>
-          </div>
-        </div>
+        <MediaPoster media={series} />
 
         {/* Details Section - Right Side*/}
         <div className="flex-1 flex flex-col gap-4">
@@ -177,7 +144,7 @@ export default function SeriesDetail() {
             </button>
 
             <button
-              onClick={toggleFavorite}
+              onClick={() => toggleFavorite({ ...series, type: "series" })}
               className={`px-4 py-2 rounded-md font-semibold flex items-center gap-2 transition ${
                 isFavorite(series.id, "series")
                   ? "bg-red-600 text-white border-red-600 hover:bg-red-700"

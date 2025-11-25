@@ -1,10 +1,12 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getMovieById, getTopRatedMovies, getSimilarMovies } from "../api/tmdb";
-import { useFavorites } from "../hooks/useFavorites";
+import { useToggleFavorite } from "../hooks/useToggleFavorite";
 import MovieRow from "../components/MovieRow";
 import placeholderMovie from "../assets/placeholderMovie.jpg";
 import NavbarSecond from "../components/NavbarSecond";
+import MediaPoster from "../components/MediaDetail/MediaPoster";
+import MediaBackground from "../components/MediaDetail/MediaBackground";
 
 /**
  * MovieDetail Component
@@ -25,14 +27,7 @@ export default function MovieDetail() {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState("overview");
   const navigate = useNavigate();
-  const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
-
-  const toggleFavorite = (movie) => {
-    const type = movie.type || "movie";
-    isFavorite(movie.id, type)
-      ? removeFromFavorites(movie.id, type)
-      : addToFavorites(movie);
-  };
+  const { toggleFavorite, isFavorite } = useToggleFavorite();
 
   // fetch main movie details
   useEffect(() => {
@@ -85,43 +80,16 @@ export default function MovieDetail() {
 
   return (
     <div className="relative min-h-screen bg-black text-white">
-      <div className="absolute inset-0">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat filter blur-sm opacity-200"
-          style={{
-            backgroundImage: `url(${
-              movie.backdrop_path
-                ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
-                : placeholderMovie
-            })`,
-          }}
-        ></div>
-        {/* Black overlay */}
-        <div className="absolute inset-0 bg-black opacity-70"></div>
-      </div>
+      {/* Background */}
+      <MediaBackground media={movie} />
 
       {/* Navbar */}
-
       <NavbarSecond />
 
       {/* Main Content */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 pt-60 pb-16 flex flex-col lg:flex-row gap-8 items-start">
         {/* Poster Section - Left Side */}
-        <div className="flex-shrink-0 w-full lg:w-1/3 flex justify-center">
-          <div className="relative rounded-lg overflow-hidden shadow-2xl transform hover:scale-105 transition duration-300 max-w-md">
-            <img
-              src={
-                movie.poster_path
-                  ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                  : placeholderMovie
-              }
-              alt={movie.title}
-              className="w-full h-auto object-cover"
-            />
-            {/* Overlay with shadows on sides */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-60"></div>
-          </div>
-        </div>
+        <MediaPoster media={movie} />
 
         {/* Details Section - Right Side*/}
         <div className="flex-1 flex flex-col gap-4">
@@ -174,8 +142,8 @@ export default function MovieDetail() {
             </button>
 
             <button
-              onClick={() => toggleFavorite(movie, "movie")}
-              className={`px-4 py-2 rounded-md font-semibold flex items-center gap-2 transition 
+              onClick={() => toggleFavorite(movie)}
+              className={`px-4 py-2 rounded-md font-semibold flex items-center gap-2 transition
     ${
       isFavorite(movie.id)
         ? "bg-red-600 text-white border-red-600 hover:bg-red-700"
@@ -193,9 +161,9 @@ export default function MovieDetail() {
                   stroke="none"
                 >
                   <path
-                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 
-               4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 
-               14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42
+               4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81
+               14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4
                6.86-8.55 11.54L12 21.35z"
                   />
                 </svg>
@@ -212,9 +180,9 @@ export default function MovieDetail() {
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 
-           4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 
-           14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42
+           4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81
+           14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4
            6.86-8.55 11.54L12 21.35z"
                   />
                 </svg>
@@ -340,6 +308,7 @@ export default function MovieDetail() {
           </div>
         </div>
       </div>
+
       <MovieRow
         className="z-10 bg-opacity-50"
         title="Top Rated"
