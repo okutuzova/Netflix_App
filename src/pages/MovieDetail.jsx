@@ -7,6 +7,7 @@ import placeholderMovie from "../assets/placeholderMovie.jpg";
 import NavbarSecond from "../components/NavbarSecond";
 import MediaPoster from "../components/MediaDetail/MediaPoster";
 import MediaBackground from "../components/MediaDetail/MediaBackground";
+import MediActions from "../components/MediaDetail/MediaActions";
 
 /**
  * MovieDetail Component
@@ -105,7 +106,7 @@ export default function MovieDetail() {
           </div>
 
           {/* Buttons */}
-          <div className="flex gap-4 mt-4">
+          {/* <div className="flex gap-4 mt-4">
             <button className="bg-white text-black px-4 py-2 rounded-md font-semibold flex items-center gap-2 hover:bg-gray-200 transition">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -188,7 +189,14 @@ export default function MovieDetail() {
                 </svg>
               )}
             </button>
-          </div>
+          </div> */}
+
+          <MediaActions
+          media={movie}
+          isFavorite={isFavorite}
+          toggleFavorite={toggleFavorite}
+          navigate={navigate}
+          />
 
           {/* Overview */}
           <p className="mt-4 text-gray-200 leading-relaxed">{movie.overview}</p>
