@@ -1,4 +1,23 @@
-export default function MediActions({
+/**
+ * MediaActions component
+ *
+ * Renders action buttons for a movie or series:
+ * - Play
+ * - Add to Favorites / Remove from Favorites
+ * - Navigate to Favorites list
+ *
+ * The component receives a media object (movie or series),
+ * a function to check if the item is already in favorites,
+ * and a toggle function to add or remove favorites.
+ *
+ * @component
+ * @param {Object} props                       - Component props.
+ * @param {Object} props.media                 - Media object (movie or series).
+ * @param {Function} props.isFavorite          - Function to check if media is already in favorites.
+ * @param {Function} props.toggleFavorite      - Function to add or remove media from favorites.
+ * @param {Function} props.navigate            - Router navigation function (from react-router).
+ */
+export default function MediaActions({
   media,
   isFavorite,
   toggleFavorite,

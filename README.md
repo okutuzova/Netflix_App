@@ -1,8 +1,12 @@
 # Netflix Clone App - by Mayte Cachi and Olga Kutuzova
-A React application to browse, search, and manage your favorite movies and series using TMDb API. The app provides a smooth user experience with search suggestions, detail pages, and a favorites system. 
+A React application to browse, search, and manage your favorite movies and series using TMDb API. The app provides a smooth user experience with search suggestions, detail pages, and a favorites system.
 ```bash
 Github: https://github.com/okutuzova/Netflix_App.git
 ```
+## Authors
+
+https://github.com/MayteCachi - Mayte Yossiani Cachi
+https://github.com/okutuzova - Olga Kutuzova
 
 ## Features
 
@@ -55,13 +59,17 @@ The Context API was used to manage favorites globally because it allows sharing 
 * **Navbar** – Displays the Netflix logo and search bar on the homepage.
 The useFavorites hook is used to manage the favorites state and actions. The useNavigate hook is used to navigate to different pages client-side.
 * **NavbarSecond** – Displays the Netflix logo and search bar on secondary pages.
-* **HeroDivider** – A decorative element to separate sections on the homepage.
+* **CurveSeparator** – A decorative element to separate sections on the homepage.
 * **RandomHero** – Displays a random movie or TV show on the pages listing movies and series.
 * **MovieRow** – Displays a list of movies or TV shows.
 The useRef hook is used to create a persistent reference to a DOM element without causing re-renders, to control horizontal scrolling of movie/TV show rows.
 The useFetch is a custom hook created to encapsulate the logic for states handling.
-* **SearchBar** – Handles user input for searching movies or TV shows, displays live results in a dropdown with poster and title. 
+* **SearchBar** – Handles user input for searching movies or TV shows, displays live results in a dropdown with poster and title.
 * **Footer** – Displays the app’s footer.
+* **MediaActions** – Action buttons displayed on the movies/series details page.
+* **MediaBackground** – Displays a blurred background image.
+* **MediaPoster** – Displays the movies or series poster.
+
 
 ### Pages
 
@@ -103,9 +111,9 @@ Usage: Wrap your app in <FavoritesProvider> and use useFavorites() hook in compo
 </FavoritesProvider>
 ```
 
-### Hooks 
+### Hooks
 `useFavorites` is a convenience hook to easily access favorites data and functions from any component.It wraps `useContext(FavoritesContext)`, so there is no need to import `useContext` and `FavoritesContext` every time.
-`useFetch` is a reusable custom hook for fetching data asynchronously. It is used in a MovieRow component to fetch the array results. 
+`useFetch` is a reusable custom hook for fetching data asynchronously. It is used in a MovieRow component to fetch the array results.
 
 ## Technologies Used
 
@@ -197,6 +205,3 @@ URL_ADDRESS:5173/
 ├── ⚙️ package.json
 └── 📄 vite.config.js
 ```
-
-
-

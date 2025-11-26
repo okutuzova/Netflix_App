@@ -1,7 +1,7 @@
 import MovieRow from "../components/MovieRow";
 import NavbarSecond from "../components/NavbarSecond";
 import RandomHero from "../components/RandomHero";
-import { 
+import {
   getTrendingMovies,
   getTopRatedMovies,
   getUpcomingMovies,
@@ -9,6 +9,19 @@ import {
   getNowPlayingMovies
 } from "../api/tmdb";
 
+/**
+ * MoviesPage Component
+ *
+ * Main page for displaying movie content.
+ * Includes a navigation bar, a random hero section, and multiple
+ * horizontal rows of movies categorized by trending, top rated,
+ * upcoming, popular, and now playing.
+ *
+ * Each MovieRow fetches data from TMDB via the provided fetch function
+ * and displays the corresponding media items.
+ *
+ * @returns {JSX.Element} The rendered MoviesPage component.
+ */
 export default function MoviesPage() {
   return (
     <div className="relative min-h-screen bg-black text-white">

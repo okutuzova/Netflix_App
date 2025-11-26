@@ -1,5 +1,21 @@
 import placeholderMovie from "../../assets/placeholderMovie.jpg";
 
+/**
+ * MediaPoster component
+ *
+ * Displays a movie or TV show poster. If the poster path is missing,
+ * a local placeholder image is rendered instead.
+ *
+ * The poster is wrapped in a responsive container with rounded corners,
+ * hover scaling animation, and a subtle side shadow overlay.
+ *
+ * @component
+ * @param {Object} props                  - Component props.
+ * @param {Object} props.media            - Media object containing poster and title information.
+ * @param {string} [props.media.poster_path] - Path to the poster image.
+ * @param {string} [props.media.title]    - Movie title (if available).
+ * @param {string} [props.media.name]     - TV show name (fallback if title is missing).
+ */
 export default function MediaPoster({ media }) {
   const imagePath = media.poster_path;
   const title = media.title || media.name;
