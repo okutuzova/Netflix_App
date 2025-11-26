@@ -159,49 +159,54 @@ URL_ADDRESS:5173/
 
 ## File Tree:
 
-```
-├── 📁 public
-│   └── 🖼️ netflix-icon.png
-├── 📁 src
-│   ├── 📁 api
-│   │   └── 📄 tmdb.js
-│   ├── 📁 assets
-│   │   ├── 🖼️ Netflix-Logo.png
-│   │   ├── 🖼️ Netflix-background-banner.jpg
-│   │   └── 🖼️ placeholderMovie.jpg
-│   ├── 📁 components
-│   │   ├── 📄 Footer.jsx
-│   │   ├── 📄 HeroDivider.jsx
-│   │   ├── 📄 MovieRow.jsx
-│   │   ├── 📄 Navbar.jsx
-│   │   ├── 📄 NavbarSecond.jsx
-│   │   ├── 📄 RandomHero.jsx
-│   │   └── 📄 SearchBar.jsx
-│   ├── 📁 context
-│   │   └── 📄 favoritesContext.jsx
-│   ├── 📁 hooks
-│   │   ├── 📄 useFavorites.js
-│   │   └── 📄 useFetch.js
-│   ├── 📁 pages
-│   │   ├── 📄 ErrorPage.jsx
-│   │   ├── 📄 FavoritesPage.jsx
-│   │   ├── 📄 Home.jsx
-│   │   ├── 📄 MovieDetail.jsx
-│   │   ├── 📄 Movies.jsx
-│   │   ├── 📄 Series.jsx
-│   │   └── 📄 SeriesDetail.jsx
-│   ├── 📁 providers
-│   │   └── 📄 FavoritesProvider.jsx
-│   ├── 🎨 App.css
-│   ├── 📄 App.jsx
-│   ├── 🎨 index.css
-│   └── 📄 main.jsx
-├── ⚙️ .gitignore
-├── 📝 README.md
+```markdown
+. 📂 Netflix_App
+├── 📄 README.md
 ├── 📄 env.example
 ├── 📄 eslint.config.js
-├── 🌐 index.html
-├── ⚙️ package-lock.json
-├── ⚙️ package.json
+├── 📄 index.html
+├── 📄 package-lock.json
+├── 📄 package.json
+└── 📂 public/
+│  ├── 📄 netflix-icon.png
+└── 📂 src/
+│  ├── 📄 App.css
+│  ├── 📄 App.jsx
+│  └── 📂 api/
+│    ├── 📄 tmdb.js
+│  └── 📂 assets/
+│    ├── 📄 Netflix-Logo.png
+│    ├── 📄 Netflix-background-banner.jpg
+│    ├── 📄 placeholderMovie.jpg
+│  └── 📂 components/
+│    ├── 📄 CurveSeparator.jsx
+│    ├── 📄 Footer.jsx
+│    └── 📂 MediaDetail/
+│      ├── 📄 MediaActions.jsx
+│      ├── 📄 MediaBackground.jsx
+│      ├── 📄 MediaPoster.jsx
+│    ├── 📄 MovieRow.jsx
+│    ├── 📄 Navbar.jsx
+│    ├── 📄 NavbarSecond.jsx
+│    ├── 📄 RandomHero.jsx
+│    ├── 📄 SearchBar.jsx
+│  └── 📂 context/
+│    ├── 📄 favoritesContext.jsx
+│  └── 📂 hooks/
+│    ├── 📄 useFavorites.js
+│    ├── 📄 useFetch.js
+│    ├── 📄 useToggleFavorite.js
+│  ├── 📄 index.css
+│  ├── 📄 main.jsx
+│  └── 📂 pages/
+│    ├── 📄 ErrorPage.jsx
+│    ├── 📄 FavoritesPage.jsx
+│    ├── 📄 Home.jsx
+│    ├── 📄 MovieDetail.jsx
+│    ├── 📄 Movies.jsx
+│    ├── 📄 Series.jsx
+│    ├── 📄 SeriesDetail.jsx
+│  └── 📂 providers/
+│    ├── 📄 FavoritesProvider.jsx
 └── 📄 vite.config.js
 ```
